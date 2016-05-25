@@ -30,10 +30,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var platform5Across: SKSpriteNode!
     var coinArrow: SKSpriteNode!
+    var platformArrow: SKSpriteNode!
+    var platformDiagonal: SKSpriteNode!
+    var breakArrow: SKSpriteNode!
+    var break5Across: SKSpriteNode!
+    var breakDiagonal: SKSpriteNode!
+    var coin5Across: SKSpriteNode!
+    var coinDiagonal: SKSpriteNode!
+    var coinCross: SKSpriteNode!
+    var coinS5Across: SKSpriteNode!
+    var coinSDiagonal: SKSpriteNode!
+    var coinSCross: SKSpriteNode!
+    var coinSArrow: SKSpriteNode!
+    
+    
     var lastItemPosition = CGPointZero
     var lastItemHeight: CGFloat = 0.0
     var levelY: CGFloat = 0.0
-    
     var isPlaying = false
     let motionManager = CMMotionManager()
     var xAcceleration = CGFloat(0)
@@ -62,11 +75,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fgNode.childNodeWithName("Bomb")?.runAction(SKAction.hide())
         lava = fgNode.childNodeWithName("Lava") as! SKSpriteNode
         
-        platform5Across = loadOverlayNode("Platform5Across")
-        coinArrow = loadOverlayNode("CoinArrow")
-        
         addChild(cameraNode)
         camera = cameraNode
+        
+        platformArrow = loadOverlayNode("PlatformArrow")
+        platform5Across = loadOverlayNode("Platform5Across")
+        platformDiagonal = loadOverlayNode("PlatformDiagonal")
+        breakArrow = loadOverlayNode("BreakArrow")
+        break5Across = loadOverlayNode("Break5Across")
+        breakDiagonal = loadOverlayNode("BreakDiagonal")
+        coin5Across = loadOverlayNode("Coin5Across")
+        coinDiagonal = loadOverlayNode("CoinDiagonal")
+        coinCross = loadOverlayNode("CoinCross")
+        coinArrow = loadOverlayNode("CoinArrow")
+        coinS5Across = loadOverlayNode("CoinS5Across")
+        coinSDiagonal = loadOverlayNode("CoinSDiagonal")
+        coinSCross = loadOverlayNode("CoinSCross")
+        coinSArrow = loadOverlayNode("CoinSArrow")
     }
     
     func setupLevel() {
@@ -127,13 +152,79 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addRandomOverlayNode() {
         let overlaySprite: SKSpriteNode!
+        var flipH = false
         let platformPercentage = 60
         if Int.random(min: 1, max: 100) <= platformPercentage {
-            overlaySprite = platform5Across
+            if Int.random(min: 1, max: 100) <= 75 {
+                // Create standard platforms 75%
+                switch Int.random(min: 0, max: 3) {
+                case 0:
+                    overlaySprite = platformArrow
+                case 1:
+                    overlaySprite = platform5Across
+                case 2:
+                    overlaySprite = platformDiagonal
+                case 3:
+                    overlaySprite = platformDiagonal
+                    flipH = true
+                default:
+                    overlaySprite = platformArrow
+                }
+            }else{
+                // Create breakable platforms 25%
+                switch Int.random(min: 0, max: 3) {
+                case 0:
+                    overlaySprite = breakArrow
+                case 1:
+                    overlaySprite = break5Across
+                case 2:
+                    overlaySprite = breakDiagonal
+                case 3:
+                    overlaySprite = breakDiagonal
+                    flipH = true
+                default:
+                    overlaySprite = breakArrow
+                }
+            }
+            
         }else{
-            overlaySprite = coinArrow
+            if Int.random(min: 1, max: 100) <= 75 {
+                // Create standard coins 75%
+                switch Int.random(min: 0, max: 4) {
+                case 0:
+                    overlaySprite = coinArrow
+                case 1:
+                    overlaySprite = coin5Across
+                case 2:
+                    overlaySprite = coinDiagonal
+                case 3:
+                    overlaySprite = coinDiagonal
+                    flipH = true
+                case 4:
+                    overlaySprite = coinCross
+                default:
+                    overlaySprite = coinArrow
+                }
+            }else{
+                // Create special coins 25%
+                switch Int.random(min: 0, max: 4) {
+                case 0:
+                    overlaySprite = coinSArrow
+                case 1:
+                    overlaySprite = coinS5Across
+                case 2:
+                    overlaySprite = coinSDiagonal
+                case 3:
+                    overlaySprite = coinSDiagonal
+                    flipH = true
+                case 4:
+                    overlaySprite = coinSCross
+                default:
+                    overlaySprite = coinSArrow
+                }
+            }
         }
-        createOverlayNode(overlaySprite, flipX: false)
+        createOverlayNode(overlaySprite, flipX: flipH)
     }
     
     func createBackgroundNode() {
@@ -189,6 +280,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setPlayerVelocity(1700)
     }
     
+    // MARK: - Contacts
+    
     func didBeginContact(contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
         switch other.categoryBitMask {
@@ -197,10 +290,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 coin.removeFromParent()
                 jumpPlayer()
             }
-            
+        case PhysicsCategory.CoinSpecial:
+            if let coin = other.node as? SKSpriteNode {
+                coin.removeFromParent()
+                boostPlayer()
+            }
         case PhysicsCategory.PlatformNormal:
             if let _ = other.node as? SKSpriteNode {
                 if player.physicsBody!.velocity.dy < 0 {
+                    jumpPlayer()
+                }
+            }
+        case PhysicsCategory.PlatformBreakable:
+            if let platform = other.node as? SKSpriteNode {
+                if player.physicsBody!.velocity.dy < 0 {
+                    platform.removeFromParent()
                     jumpPlayer()
                 }
             }

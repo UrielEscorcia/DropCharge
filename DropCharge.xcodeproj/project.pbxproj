@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A173D9A1CF50C1300EBFA9E /* Break5Across.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A173D991CF50C1300EBFA9E /* Break5Across.sks */; };
+		3A173D9C1CF50FD100EBFA9E /* CoinSArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A173D9B1CF50FD100EBFA9E /* CoinSArrow.sks */; };
 		3A1A3ECA1CF3DD0900ABD17B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EC91CF3DD0900ABD17B /* AppDelegate.swift */; };
 		3A1A3ECC1CF3DD0900ABD17B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */; };
 		3A1A3ECE1CF3DD0900ABD17B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3ECD1CF3DD0900ABD17B /* GameScene.swift */; };
@@ -28,9 +30,21 @@
 		3A1A3EFA1CF3F98F00ABD17B /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EEE1CF3F98F00ABD17B /* SKTEffects.swift */; };
 		3A1A3EFB1CF3F98F00ABD17B /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EEF1CF3F98F00ABD17B /* SKTTimingFunctions.swift */; };
 		3A1A3EFC1CF3F98F00ABD17B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EF01CF3F98F00ABD17B /* Vector3.swift */; };
+		3A4220C51CF5220600857E48 /* PlatformArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C41CF5220600857E48 /* PlatformArrow.sks */; };
+		3A4220C71CF5231700857E48 /* PlatformDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */; };
+		3A4220C91CF5244C00857E48 /* BreakArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C81CF5244C00857E48 /* BreakArrow.sks */; };
+		3A4220CB1CF525E800857E48 /* BreakDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220CA1CF525E800857E48 /* BreakDiagonal.sks */; };
+		3A4220CD1CF526F600857E48 /* Coin5Across.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220CC1CF526F600857E48 /* Coin5Across.sks */; };
+		3A4220CF1CF5294900857E48 /* CoinDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220CE1CF5294900857E48 /* CoinDiagonal.sks */; };
+		3A4220D11CF52A3F00857E48 /* CoinCross.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D01CF52A3F00857E48 /* CoinCross.sks */; };
+		3A4220D31CF52B7E00857E48 /* CoinS5Across.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D21CF52B7E00857E48 /* CoinS5Across.sks */; };
+		3A4220D51CF52C7400857E48 /* CoinSDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D41CF52C7400857E48 /* CoinSDiagonal.sks */; };
+		3A4220D71CF52F5B00857E48 /* CoinSCross.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D61CF52F5B00857E48 /* CoinSCross.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A173D991CF50C1300EBFA9E /* Break5Across.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Break5Across.sks; sourceTree = "<group>"; };
+		3A173D9B1CF50FD100EBFA9E /* CoinSArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSArrow.sks; sourceTree = "<group>"; };
 		3A1A3EC61CF3DD0800ABD17B /* DropCharge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropCharge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1A3EC91CF3DD0900ABD17B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -54,6 +68,16 @@
 		3A1A3EEE1CF3F98F00ABD17B /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTEffects.swift; sourceTree = "<group>"; };
 		3A1A3EEF1CF3F98F00ABD17B /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		3A1A3EF01CF3F98F00ABD17B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
+		3A4220C41CF5220600857E48 /* PlatformArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformArrow.sks; sourceTree = "<group>"; };
+		3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformDiagonal.sks; sourceTree = "<group>"; };
+		3A4220C81CF5244C00857E48 /* BreakArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BreakArrow.sks; sourceTree = "<group>"; };
+		3A4220CA1CF525E800857E48 /* BreakDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BreakDiagonal.sks; sourceTree = "<group>"; };
+		3A4220CC1CF526F600857E48 /* Coin5Across.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Coin5Across.sks; sourceTree = "<group>"; };
+		3A4220CE1CF5294900857E48 /* CoinDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinDiagonal.sks; sourceTree = "<group>"; };
+		3A4220D01CF52A3F00857E48 /* CoinCross.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinCross.sks; sourceTree = "<group>"; };
+		3A4220D21CF52B7E00857E48 /* CoinS5Across.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinS5Across.sks; sourceTree = "<group>"; };
+		3A4220D41CF52C7400857E48 /* CoinSDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSDiagonal.sks; sourceTree = "<group>"; };
+		3A4220D61CF52F5B00857E48 /* CoinSCross.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSCross.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +129,18 @@
 			children = (
 				3A1A3EE01CF3EFEC00ABD17B /* Platform5Across.sks */,
 				3A1A3EE21CF3F29C00ABD17B /* CoinArrow.sks */,
+				3A173D991CF50C1300EBFA9E /* Break5Across.sks */,
+				3A173D9B1CF50FD100EBFA9E /* CoinSArrow.sks */,
+				3A4220C41CF5220600857E48 /* PlatformArrow.sks */,
+				3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */,
+				3A4220C81CF5244C00857E48 /* BreakArrow.sks */,
+				3A4220CA1CF525E800857E48 /* BreakDiagonal.sks */,
+				3A4220CC1CF526F600857E48 /* Coin5Across.sks */,
+				3A4220CE1CF5294900857E48 /* CoinDiagonal.sks */,
+				3A4220D01CF52A3F00857E48 /* CoinCross.sks */,
+				3A4220D21CF52B7E00857E48 /* CoinS5Across.sks */,
+				3A4220D41CF52C7400857E48 /* CoinSDiagonal.sks */,
+				3A4220D61CF52F5B00857E48 /* CoinSCross.sks */,
 			);
 			name = "Scene Files";
 			sourceTree = "<group>";
@@ -187,11 +223,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4220CD1CF526F600857E48 /* Coin5Across.sks in Resources */,
+				3A4220D51CF52C7400857E48 /* CoinSDiagonal.sks in Resources */,
 				3A1A3EE11CF3EFEC00ABD17B /* Platform5Across.sks in Resources */,
 				3A1A3ECC1CF3DD0900ABD17B /* GameScene.sks in Resources */,
 				3A1A3EE31CF3F29C00ABD17B /* CoinArrow.sks in Resources */,
 				3A1A3ED81CF3DD0900ABD17B /* LaunchScreen.storyboard in Resources */,
+				3A4220CF1CF5294900857E48 /* CoinDiagonal.sks in Resources */,
+				3A4220CB1CF525E800857E48 /* BreakDiagonal.sks in Resources */,
+				3A4220C91CF5244C00857E48 /* BreakArrow.sks in Resources */,
+				3A173D9C1CF50FD100EBFA9E /* CoinSArrow.sks in Resources */,
 				3A1A3ED51CF3DD0900ABD17B /* Assets.xcassets in Resources */,
+				3A4220C51CF5220600857E48 /* PlatformArrow.sks in Resources */,
+				3A4220D31CF52B7E00857E48 /* CoinS5Across.sks in Resources */,
+				3A4220C71CF5231700857E48 /* PlatformDiagonal.sks in Resources */,
+				3A173D9A1CF50C1300EBFA9E /* Break5Across.sks in Resources */,
+				3A4220D71CF52F5B00857E48 /* CoinSCross.sks in Resources */,
+				3A4220D11CF52A3F00857E48 /* CoinCross.sks in Resources */,
 				3A1A3ED31CF3DD0900ABD17B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +419,7 @@
 				3A1A3EDE1CF3DD0900ABD17B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
