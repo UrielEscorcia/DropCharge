@@ -40,6 +40,10 @@
 		3A4220D31CF52B7E00857E48 /* CoinS5Across.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D21CF52B7E00857E48 /* CoinS5Across.sks */; };
 		3A4220D51CF52C7400857E48 /* CoinSDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D41CF52C7400857E48 /* CoinSDiagonal.sks */; };
 		3A4220D71CF52F5B00857E48 /* CoinSCross.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220D61CF52F5B00857E48 /* CoinSCross.sks */; };
+		3A4220D91CF55EF600857E48 /* WaitingForTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4220D81CF55EF600857E48 /* WaitingForTap.swift */; };
+		3A4220DB1CF576F300857E48 /* WaitingForBomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4220DA1CF576F300857E48 /* WaitingForBomb.swift */; };
+		3A4220DD1CF5802100857E48 /* Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4220DC1CF5802100857E48 /* Playing.swift */; };
+		3A4220DF1CF5856200857E48 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4220DE1CF5856200857E48 /* GameOver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +82,10 @@
 		3A4220D21CF52B7E00857E48 /* CoinS5Across.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinS5Across.sks; sourceTree = "<group>"; };
 		3A4220D41CF52C7400857E48 /* CoinSDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSDiagonal.sks; sourceTree = "<group>"; };
 		3A4220D61CF52F5B00857E48 /* CoinSCross.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSCross.sks; sourceTree = "<group>"; };
+		3A4220D81CF55EF600857E48 /* WaitingForTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForTap.swift; sourceTree = "<group>"; };
+		3A4220DA1CF576F300857E48 /* WaitingForBomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForBomb.swift; sourceTree = "<group>"; };
+		3A4220DC1CF5802100857E48 /* Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playing.swift; sourceTree = "<group>"; };
+		3A4220DE1CF5856200857E48 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,10 @@
 				3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */,
 				3A1A3ECD1CF3DD0900ABD17B /* GameScene.swift */,
 				3A1A3ECF1CF3DD0900ABD17B /* GameViewController.swift */,
+				3A4220D81CF55EF600857E48 /* WaitingForTap.swift */,
+				3A4220DA1CF576F300857E48 /* WaitingForBomb.swift */,
+				3A4220DC1CF5802100857E48 /* Playing.swift */,
+				3A4220DE1CF5856200857E48 /* GameOver.swift */,
 				3A1A3ED11CF3DD0900ABD17B /* Main.storyboard */,
 				3A1A3ED41CF3DD0900ABD17B /* Assets.xcassets */,
 				3A1A3ED61CF3DD0900ABD17B /* LaunchScreen.storyboard */,
@@ -251,6 +263,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4220DD1CF5802100857E48 /* Playing.swift in Sources */,
+				3A4220DF1CF5856200857E48 /* GameOver.swift in Sources */,
 				3A1A3ECE1CF3DD0900ABD17B /* GameScene.swift in Sources */,
 				3A1A3EF21CF3F98F00ABD17B /* CGPoint+Extensions.swift in Sources */,
 				3A1A3EFB1CF3F98F00ABD17B /* SKTTimingFunctions.swift in Sources */,
@@ -261,9 +275,11 @@
 				3A1A3EF71CF3F98F00ABD17B /* SKColor+Extensions.swift in Sources */,
 				3A1A3ED01CF3DD0900ABD17B /* GameViewController.swift in Sources */,
 				3A1A3EF41CF3F98F00ABD17B /* Int+Extensions.swift in Sources */,
+				3A4220DB1CF576F300857E48 /* WaitingForBomb.swift in Sources */,
 				3A1A3EF81CF3F98F00ABD17B /* SKNode+Extensions.swift in Sources */,
 				3A1A3EF91CF3F98F00ABD17B /* SKTAudio.swift in Sources */,
 				3A1A3EF11CF3F98F00ABD17B /* CGFloat+Extensions.swift in Sources */,
+				3A4220D91CF55EF600857E48 /* WaitingForTap.swift in Sources */,
 				3A1A3EFC1CF3F98F00ABD17B /* Vector3.swift in Sources */,
 				3A1A3ECA1CF3DD0900ABD17B /* AppDelegate.swift in Sources */,
 			);
