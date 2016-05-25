@@ -1,5 +1,5 @@
 //
-//  GameOver.swift
+//  Idle.swift
 //  DropCharge
 //
 //  Created by Urisito on 5/25/16.
@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameOver: GKState {
+class Idle: GKState {
     
     unowned let scene: GameScene
     
@@ -19,16 +19,16 @@ class GameOver: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-        if previousState is Playing {
-            let gameOver = SKSpriteNode(imageNamed: "GameOver")
-            gameOver.position = scene.getCameraPosition()
-            gameOver.zPosition = 10
-            scene.addChild(gameOver)
-        }
+        scene.player.physicsBody = SKPhysicsBody(circleOfRadius: scene.player.size.width * 0.3)
+        scene.player.physicsBody!.dynamic = false
+        scene.player.physicsBody!.allowsRotation = false
+        scene.player.physicsBody!.categoryBitMask = PhysicsCategory.Player
+        scene.player.physicsBody!.collisionBitMask = 0
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
-        return stateClass is WaitingForTap.Type
+        return stateClass is Jump.Type
     }
+
 
 }

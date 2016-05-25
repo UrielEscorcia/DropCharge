@@ -1,5 +1,5 @@
 //
-//  GameOver.swift
+//  Fall.swift
 //  DropCharge
 //
 //  Created by Urisito on 5/25/16.
@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameOver: GKState {
+class Fall: GKState {
     
     unowned let scene: GameScene
     
@@ -19,16 +19,11 @@ class GameOver: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-        if previousState is Playing {
-            let gameOver = SKSpriteNode(imageNamed: "GameOver")
-            gameOver.position = scene.getCameraPosition()
-            gameOver.zPosition = 10
-            scene.addChild(gameOver)
-        }
+        print("Fall")
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
-        return stateClass is WaitingForTap.Type
+        return stateClass is Jump.Type || stateClass is Lava.Type
     }
 
 }

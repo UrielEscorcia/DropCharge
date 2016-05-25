@@ -30,6 +30,11 @@
 		3A1A3EFA1CF3F98F00ABD17B /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EEE1CF3F98F00ABD17B /* SKTEffects.swift */; };
 		3A1A3EFB1CF3F98F00ABD17B /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EEF1CF3F98F00ABD17B /* SKTTimingFunctions.swift */; };
 		3A1A3EFC1CF3F98F00ABD17B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A3EF01CF3F98F00ABD17B /* Vector3.swift */; };
+		3A3948BE1CF652AF008D491B /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948BD1CF652AF008D491B /* Idle.swift */; };
+		3A3948C01CF6549B008D491B /* Jump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948BF1CF6549B008D491B /* Jump.swift */; };
+		3A3948C21CF654D8008D491B /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948C11CF654D8008D491B /* Fall.swift */; };
+		3A3948C41CF65501008D491B /* Lava.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948C31CF65501008D491B /* Lava.swift */; };
+		3A3948C61CF65521008D491B /* Dead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948C51CF65521008D491B /* Dead.swift */; };
 		3A4220C51CF5220600857E48 /* PlatformArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C41CF5220600857E48 /* PlatformArrow.sks */; };
 		3A4220C71CF5231700857E48 /* PlatformDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */; };
 		3A4220C91CF5244C00857E48 /* BreakArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C81CF5244C00857E48 /* BreakArrow.sks */; };
@@ -72,6 +77,11 @@
 		3A1A3EEE1CF3F98F00ABD17B /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTEffects.swift; sourceTree = "<group>"; };
 		3A1A3EEF1CF3F98F00ABD17B /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		3A1A3EF01CF3F98F00ABD17B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
+		3A3948BD1CF652AF008D491B /* Idle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
+		3A3948BF1CF6549B008D491B /* Jump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jump.swift; sourceTree = "<group>"; };
+		3A3948C11CF654D8008D491B /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
+		3A3948C31CF65501008D491B /* Lava.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lava.swift; sourceTree = "<group>"; };
+		3A3948C51CF65521008D491B /* Dead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dead.swift; sourceTree = "<group>"; };
 		3A4220C41CF5220600857E48 /* PlatformArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformArrow.sks; sourceTree = "<group>"; };
 		3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformDiagonal.sks; sourceTree = "<group>"; };
 		3A4220C81CF5244C00857E48 /* BreakArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BreakArrow.sks; sourceTree = "<group>"; };
@@ -123,10 +133,8 @@
 				3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */,
 				3A1A3ECD1CF3DD0900ABD17B /* GameScene.swift */,
 				3A1A3ECF1CF3DD0900ABD17B /* GameViewController.swift */,
-				3A4220D81CF55EF600857E48 /* WaitingForTap.swift */,
-				3A4220DA1CF576F300857E48 /* WaitingForBomb.swift */,
-				3A4220DC1CF5802100857E48 /* Playing.swift */,
-				3A4220DE1CF5856200857E48 /* GameOver.swift */,
+				3A3948BC1CF6523E008D491B /* Game States */,
+				3A3948BB1CF65226008D491B /* Player States */,
 				3A1A3ED11CF3DD0900ABD17B /* Main.storyboard */,
 				3A1A3ED41CF3DD0900ABD17B /* Assets.xcassets */,
 				3A1A3ED61CF3DD0900ABD17B /* LaunchScreen.storyboard */,
@@ -174,6 +182,29 @@
 				3A1A3EF01CF3F98F00ABD17B /* Vector3.swift */,
 			);
 			path = SKTUtils;
+			sourceTree = "<group>";
+		};
+		3A3948BB1CF65226008D491B /* Player States */ = {
+			isa = PBXGroup;
+			children = (
+				3A3948BD1CF652AF008D491B /* Idle.swift */,
+				3A3948BF1CF6549B008D491B /* Jump.swift */,
+				3A3948C11CF654D8008D491B /* Fall.swift */,
+				3A3948C31CF65501008D491B /* Lava.swift */,
+				3A3948C51CF65521008D491B /* Dead.swift */,
+			);
+			name = "Player States";
+			sourceTree = "<group>";
+		};
+		3A3948BC1CF6523E008D491B /* Game States */ = {
+			isa = PBXGroup;
+			children = (
+				3A4220D81CF55EF600857E48 /* WaitingForTap.swift */,
+				3A4220DA1CF576F300857E48 /* WaitingForBomb.swift */,
+				3A4220DC1CF5802100857E48 /* Playing.swift */,
+				3A4220DE1CF5856200857E48 /* GameOver.swift */,
+			);
+			name = "Game States";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,7 +297,9 @@
 				3A4220DD1CF5802100857E48 /* Playing.swift in Sources */,
 				3A4220DF1CF5856200857E48 /* GameOver.swift in Sources */,
 				3A1A3ECE1CF3DD0900ABD17B /* GameScene.swift in Sources */,
+				3A3948C61CF65521008D491B /* Dead.swift in Sources */,
 				3A1A3EF21CF3F98F00ABD17B /* CGPoint+Extensions.swift in Sources */,
+				3A3948C21CF654D8008D491B /* Fall.swift in Sources */,
 				3A1A3EFB1CF3F98F00ABD17B /* SKTTimingFunctions.swift in Sources */,
 				3A1A3EFA1CF3F98F00ABD17B /* SKTEffects.swift in Sources */,
 				3A1A3EF61CF3F98F00ABD17B /* SKAction+SpecialEffects.swift in Sources */,
@@ -274,13 +307,16 @@
 				3A1A3EF51CF3F98F00ABD17B /* SKAction+Extensions.swift in Sources */,
 				3A1A3EF71CF3F98F00ABD17B /* SKColor+Extensions.swift in Sources */,
 				3A1A3ED01CF3DD0900ABD17B /* GameViewController.swift in Sources */,
+				3A3948BE1CF652AF008D491B /* Idle.swift in Sources */,
 				3A1A3EF41CF3F98F00ABD17B /* Int+Extensions.swift in Sources */,
 				3A4220DB1CF576F300857E48 /* WaitingForBomb.swift in Sources */,
 				3A1A3EF81CF3F98F00ABD17B /* SKNode+Extensions.swift in Sources */,
 				3A1A3EF91CF3F98F00ABD17B /* SKTAudio.swift in Sources */,
 				3A1A3EF11CF3F98F00ABD17B /* CGFloat+Extensions.swift in Sources */,
 				3A4220D91CF55EF600857E48 /* WaitingForTap.swift in Sources */,
+				3A3948C01CF6549B008D491B /* Jump.swift in Sources */,
 				3A1A3EFC1CF3F98F00ABD17B /* Vector3.swift in Sources */,
+				3A3948C41CF65501008D491B /* Lava.swift in Sources */,
 				3A1A3ECA1CF3DD0900ABD17B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -63,16 +63,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameOver(scene: self)
         ])
     
+    lazy var playerState: GKStateMachine = GKStateMachine(states: [
+        Idle(scene: self),
+        Jump(scene: self),
+        Fall(scene: self),
+        Lava(scene: self)
+        ])
+    
     override func didMoveToView(view: SKView) {
         setupNodes()
         setupLevel()
-        setupPlayer()
         setupCoreMotion()
-        
+    
         physicsWorld.contactDelegate = self
         setCameraPosition(CGPoint(x: size.width / 2, y: size.height / 2))
         
         gameState.enterState(WaitingForTap)
+        playerState.enterState(Idle)
     }
     
     func setupNodes() {
@@ -119,14 +126,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         while lastItemPosition.y < levelY {
             addRandomOverlayNode()
         }
-    }
-    
-    func setupPlayer() {
-        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width * 0.3)
-        player.physicsBody!.dynamic = false
-        player.physicsBody!.allowsRotation = false
-        player.physicsBody!.categoryBitMask = PhysicsCategory.Player
-        player.physicsBody!.collisionBitMask = 0
     }
     
     func setupCoreMotion() {
@@ -337,7 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func updatePlayer() {
         // Set velocity based on core motion
-        player.physicsBody?.velocity.dx = xAcceleration * 1000.0
+        player.physicsBody?.velocity.dx = xAcceleration * 4000.0
         // Wrap player around edges of screen
         var playerPosition = convertPoint(player.position, fromNode: fgNode)
         if playerPosition.x < -player.size.width/2 {
@@ -346,6 +345,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }else if playerPosition.x > size.width + player.size.width/2 {
             playerPosition = convertPoint(CGPoint(x: -player.size.width/2, y: 0.0), toNode: fgNode)
             player.position.x = playerPosition.x
+        }
+        
+        if player.physicsBody?.velocity.dy < 0 {
+            playerState.enterState(Fall)
+        }else{
+            playerState.enterState(Jump)
         }
     }
     
@@ -378,9 +383,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func updateCollisionLava() {
         if player.position.y < lava.position.y + 90 {
-            boostPlayer()
-            lives -= 1
+            playerState.enterState(Lava)
             if lives <= 0 {
+                playerState.enterState(Dead)
                 gameState.enterState(GameOver)
             }
         }
@@ -419,6 +424,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             x: position.x - overlapAmount()/2,
             y: position.y)
     }
+    
+    func explosion(intensity: CGFloat) -> SKEmitterNode {
+        let emitter = SKEmitterNode()
+        let particleTexture = SKTexture(imageNamed: "spark")
+        
+        emitter.zPosition = 2
+        emitter.particleTexture = particleTexture
+        emitter.particleBirthRate = 4000 * intensity
+        emitter.numParticlesToEmit = Int(400 * intensity)
+        emitter.particleLifetime = 2.0
+        emitter.emissionAngle = CGFloat(90).degreesToRadians()
+        emitter.emissionAngleRange = CGFloat(360).degreesToRadians()
+        emitter.particleSpeed = 600 * intensity
+        emitter.particleSpeedRange = 1000 * intensity
+        emitter.particleAlpha = 1.0
+        emitter.particleAlphaRange = 0.25
+        emitter.particleScale = 1.2
+        emitter.particleScaleRange = 2.0
+        emitter.particleScaleSpeed = -1.5
+        emitter.particleColor = SKColor.orangeColor()
+        emitter.particleColorBlendFactor = 1
+        emitter.particleBlendMode = SKBlendMode.Add
+        emitter.runAction(SKAction.removeFromParentAfterDelay(2.0))
+        
+        return emitter
+    }
+    
     
 }
 
