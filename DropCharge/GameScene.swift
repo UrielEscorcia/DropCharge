@@ -90,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fgNode = worldNode.childNodeWithName("Foreground")!
         player = fgNode.childNodeWithName("Player") as! SKSpriteNode
         fgNode.childNodeWithName("Bomb")?.runAction(SKAction.hide())
-        lava = fgNode.childNodeWithName("Lava") as! SKSpriteNode
+        setupLava()
         
         addChild(cameraNode)
         camera = cameraNode
@@ -382,7 +382,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func updateCollisionLava() {
-        if player.position.y < lava.position.y + 90 {
+        if player.position.y < lava.position.y + 180 {
             playerState.enterState(Lava)
             if lives <= 0 {
                 playerState.enterState(Dead)
@@ -425,6 +425,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             y: position.y)
     }
     
+    // MARK: - Particles
+    
     func explosion(intensity: CGFloat) -> SKEmitterNode {
         let emitter = SKEmitterNode()
         let particleTexture = SKTexture(imageNamed: "spark")
@@ -443,12 +445,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         emitter.particleScale = 1.2
         emitter.particleScaleRange = 2.0
         emitter.particleScaleSpeed = -1.5
-        emitter.particleColor = SKColor.orangeColor()
         emitter.particleColorBlendFactor = 1
         emitter.particleBlendMode = SKBlendMode.Add
         emitter.runAction(SKAction.removeFromParentAfterDelay(2.0))
         
+        let sequence = SKKeyframeSequence(capacity: 5)
+        sequence.addKeyframeValue(SKColor.whiteColor(), time: 0)
+        sequence.addKeyframeValue(SKColor.yellowColor(), time: 0.10)
+        sequence.addKeyframeValue(SKColor.orangeColor(), time: 0.15)
+        sequence.addKeyframeValue(SKColor.redColor(), time: 0.75)
+        sequence.addKeyframeValue(SKColor.blackColor(), time: 0.95)
+        emitter.particleColorSequence = sequence
+        
         return emitter
+    }
+    
+    func setupLava() {
+        lava = fgNode.childNodeWithName("Lava")! as! SKSpriteNode
+        let emitter = SKEmitterNode(fileNamed: "Lava.sks")!
+        emitter.particlePositionRange = CGVector(dx: size.width * 1.125, dy: 0.0)
+        emitter.advanceSimulationTime(3.0)
+        emitter.zPosition = 4
+        lava.addChild(emitter)
     }
     
     

@@ -35,6 +35,8 @@
 		3A3948C21CF654D8008D491B /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948C11CF654D8008D491B /* Fall.swift */; };
 		3A3948C41CF65501008D491B /* Lava.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948C31CF65501008D491B /* Lava.swift */; };
 		3A3948C61CF65521008D491B /* Dead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3948C51CF65521008D491B /* Dead.swift */; };
+		3A3948CA1CF67F2B008D491B /* Lava.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3948C81CF67F2B008D491B /* Lava.sks */; };
+		3A3948CB1CF67F2B008D491B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3948C91CF67F2B008D491B /* spark.png */; };
 		3A4220C51CF5220600857E48 /* PlatformArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C41CF5220600857E48 /* PlatformArrow.sks */; };
 		3A4220C71CF5231700857E48 /* PlatformDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */; };
 		3A4220C91CF5244C00857E48 /* BreakArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A4220C81CF5244C00857E48 /* BreakArrow.sks */; };
@@ -82,6 +84,8 @@
 		3A3948C11CF654D8008D491B /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
 		3A3948C31CF65501008D491B /* Lava.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lava.swift; sourceTree = "<group>"; };
 		3A3948C51CF65521008D491B /* Dead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dead.swift; sourceTree = "<group>"; };
+		3A3948C81CF67F2B008D491B /* Lava.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Lava.sks; sourceTree = "<group>"; };
+		3A3948C91CF67F2B008D491B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		3A4220C41CF5220600857E48 /* PlatformArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformArrow.sks; sourceTree = "<group>"; };
 		3A4220C61CF5231700857E48 /* PlatformDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformDiagonal.sks; sourceTree = "<group>"; };
 		3A4220C81CF5244C00857E48 /* BreakArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BreakArrow.sks; sourceTree = "<group>"; };
@@ -128,11 +132,12 @@
 		3A1A3EC81CF3DD0900ABD17B /* DropCharge */ = {
 			isa = PBXGroup;
 			children = (
-				3A1A3EDF1CF3EF9800ABD17B /* Scene Files */,
 				3A1A3EC91CF3DD0900ABD17B /* AppDelegate.swift */,
 				3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */,
 				3A1A3ECD1CF3DD0900ABD17B /* GameScene.swift */,
 				3A1A3ECF1CF3DD0900ABD17B /* GameViewController.swift */,
+				3A3948C71CF67CF3008D491B /* Particles */,
+				3A1A3EDF1CF3EF9800ABD17B /* Scene Files */,
 				3A3948BC1CF6523E008D491B /* Game States */,
 				3A3948BB1CF65226008D491B /* Player States */,
 				3A1A3ED11CF3DD0900ABD17B /* Main.storyboard */,
@@ -207,6 +212,15 @@
 			name = "Game States";
 			sourceTree = "<group>";
 		};
+		3A3948C71CF67CF3008D491B /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				3A3948C81CF67F2B008D491B /* Lava.sks */,
+				3A3948C91CF67F2B008D491B /* spark.png */,
+			);
+			name = Particles;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -271,6 +285,7 @@
 				3A1A3EE11CF3EFEC00ABD17B /* Platform5Across.sks in Resources */,
 				3A1A3ECC1CF3DD0900ABD17B /* GameScene.sks in Resources */,
 				3A1A3EE31CF3F29C00ABD17B /* CoinArrow.sks in Resources */,
+				3A3948CB1CF67F2B008D491B /* spark.png in Resources */,
 				3A1A3ED81CF3DD0900ABD17B /* LaunchScreen.storyboard in Resources */,
 				3A4220CF1CF5294900857E48 /* CoinDiagonal.sks in Resources */,
 				3A4220CB1CF525E800857E48 /* BreakDiagonal.sks in Resources */,
@@ -284,6 +299,7 @@
 				3A4220D71CF52F5B00857E48 /* CoinSCross.sks in Resources */,
 				3A4220D11CF52A3F00857E48 /* CoinCross.sks in Resources */,
 				3A1A3ED31CF3DD0900ABD17B /* Main.storyboard in Resources */,
+				3A3948CA1CF67F2B008D491B /* Lava.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
