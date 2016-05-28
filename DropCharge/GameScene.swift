@@ -56,6 +56,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var lives = 3
     
+    var backgroundMusic: SKAudioNode!
+    var bgMusicAlarm: SKAudioNode!
+    let soundBombDrop = SKAction.playSoundFileNamed("bombDrop.wav", waitForCompletion: false)
+    let soundSuperBoost = SKAction.playSoundFileNamed("nitro.wav", waitForCompletion: false)
+    let soundTickTock = SKAction.playSoundFileNamed("tickTock.wav", waitForCompletion: false)
+    let soundBoost = SKAction.playSoundFileNamed("boost.wav", waitForCompletion: false)
+    let soundJump = SKAction.playSoundFileNamed("jump.wav", waitForCompletion: false)
+    let soundCoin = SKAction.playSoundFileNamed("coin1.wav", waitForCompletion: false)
+    let soundBrick = SKAction.playSoundFileNamed("brick.caf", waitForCompletion: false)
+    let soundHitLava = SKAction.playSoundFileNamed("DrownFireBug.mp3", waitForCompletion: false)
+    let soundGameOver = SKAction.playSoundFileNamed("player_die.wav", waitForCompletion: false)
+    let soundExplosions = [
+        SKAction.playSoundFileNamed("explosion1.wav", waitForCompletion: false),
+        SKAction.playSoundFileNamed("explosion2.wav", waitForCompletion: false),
+        SKAction.playSoundFileNamed("explosion3.wav", waitForCompletion: false),
+        SKAction.playSoundFileNamed("explosion4.wav", waitForCompletion: false)
+    ]
+    
+    
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
         WaitingForTap(scene: self),
         WaitingForBomb(scene: self),
@@ -75,11 +94,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupLevel()
         setupCoreMotion()
     
-        physicsWorld.contactDelegate = self
         setCameraPosition(CGPoint(x: size.width / 2, y: size.height / 2))
+        physicsWorld.contactDelegate = self
         
         gameState.enterState(WaitingForTap)
         playerState.enterState(Idle)
+        
+        playBackgroundMusic("SpaceGame.caf")
     }
     
     func setupNodes() {
@@ -292,16 +313,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let coin = other.node as? SKSpriteNode {
                 coin.removeFromParent()
                 jumpPlayer()
+                runAction(soundCoin)
             }
         case PhysicsCategory.CoinSpecial:
             if let coin = other.node as? SKSpriteNode {
                 coin.removeFromParent()
                 boostPlayer()
+                runAction(soundBoost)
             }
         case PhysicsCategory.PlatformNormal:
             if let _ = other.node as? SKSpriteNode {
                 if player.physicsBody!.velocity.dy < 0 {
                     jumpPlayer()
+                    runAction(soundJump)
                 }
             }
         case PhysicsCategory.PlatformBreakable:
@@ -309,6 +333,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if player.physicsBody!.velocity.dy < 0 {
                     platform.removeFromParent()
                     jumpPlayer()
+                    runAction(soundBrick)
                 }
             }
         default:
@@ -469,6 +494,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lava.addChild(emitter)
     }
     
+    func addTrail(name: String) -> SKEmitterNode {
+        let trail = SKEmitterNode(fileNamed: name)!
+        trail.targetNode = fgNode
+        player.addChild(trail)
+        return trail
+    }
+    
+    func removeTrail(trail: SKEmitterNode) {
+        trail.numParticlesToEmit = 1
+        trail.runAction(SKAction.removeFromParentAfterDelay(1.0))
+    }
+    // MARK: - Sound 
+    
+    func playBackgroundMusic(name: String) {
+        if backgroundMusic != nil {
+            backgroundMusic.removeFromParent()
+            if bgMusicAlarm != nil {
+                bgMusicAlarm.removeFromParent()
+            }else{
+                let tempAlarm = SKAudioNode(fileNamed: "alarm.wav")
+                tempAlarm.autoplayLooped = true
+                self.bgMusicAlarm = tempAlarm
+                addChild(self.bgMusicAlarm)
+            }
+        }
+        let tempMusic = SKAudioNode(fileNamed: name)
+        tempMusic.autoplayLooped = true
+        self.backgroundMusic = tempMusic
+        
+        addChild(self.backgroundMusic)
+    }
     
 }
 

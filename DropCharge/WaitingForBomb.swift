@@ -33,6 +33,9 @@ class WaitingForBomb: GKState {
             scene.fgNode.childNodeWithName("Bomb")!.runAction(SKAction.unhide())
             scene.fgNode.childNodeWithName("Bomb")!.runAction(repeatSeq)
             
+            scene.runAction(scene.soundBombDrop)
+            scene.runAction(SKAction.repeatAction(scene.soundTickTock, count: 2))
+            
         }
     }
     
@@ -43,6 +46,7 @@ class WaitingForBomb: GKState {
     override func willExitWithNextState(nextState: GKState) {
         if nextState is Playing {
             let bomb = scene.fgNode.childNodeWithName("Bomb")!
+            scene.runAction(scene.soundExplosions[3])
             let explosion = scene.explosion(2.0)
             explosion.position = bomb.position
             scene.fgNode.addChild(explosion)

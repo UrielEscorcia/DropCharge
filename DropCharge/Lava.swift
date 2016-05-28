@@ -19,6 +19,14 @@ class Lava: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
+        scene.runAction(scene.soundHitLava)
+        let smokeTrail = scene.addTrail("SmokeTrail")
+        scene.runAction(SKAction.sequence([
+            SKAction.waitForDuration(3.0),
+            SKAction.runBlock(){
+                self.scene.removeTrail(smokeTrail)
+            }
+        ]))
         scene.boostPlayer()
         scene.lives -= 1
     }

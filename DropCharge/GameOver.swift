@@ -20,6 +20,7 @@ class GameOver: GKState {
     
     override func didEnterWithPreviousState(previousState: GKState?) {
         if previousState is Playing {
+            scene.playBackgroundMusic("SpaceGame.caf")
             let gameOver = SKSpriteNode(imageNamed: "GameOver")
             gameOver.position = scene.getCameraPosition()
             gameOver.zPosition = 10

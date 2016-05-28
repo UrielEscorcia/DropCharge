@@ -20,6 +20,7 @@ class Playing: GKState {
     
     override func didEnterWithPreviousState(previousState: GKState?) {
         if previousState is WaitingForBomb {
+            scene.playBackgroundMusic("bgMusic.mp3")
             scene.player.physicsBody!.dynamic = true
             scene.superBoostPlayer()
         }
