@@ -32,6 +32,8 @@ class Playing: GKState {
         scene.updatePlayer()
         scene.updateLava(seconds)
         scene.updateCollisionLava()
+        scene.updateExplosions(seconds)
+        scene.updateRedAlert(seconds)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

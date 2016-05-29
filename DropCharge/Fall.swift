@@ -19,7 +19,7 @@ class Fall: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-        print("Fall")
+        scene.runAnim(scene.animFall)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

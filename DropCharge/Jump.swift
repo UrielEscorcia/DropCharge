@@ -19,7 +19,24 @@ class Jump: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-        print("Jump")
+        if previousState is Lava {
+            return
+        }
+        if scene.playerTrail.particleBirthRate == 0 {
+           scene.playerTrail.particleBirthRate = 200
+        }
+    }
+    
+    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        if abs(scene.player.physicsBody!.velocity.dx) > 100.0 {
+            if scene.player.physicsBody!.velocity.dx > 0 {
+                scene.runAnim(scene.animSteerRight)
+            }else{
+                scene.runAnim(scene.animSteerLeft)
+            }
+        }else{
+            scene.runAnim(scene.animJump)
+        }
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

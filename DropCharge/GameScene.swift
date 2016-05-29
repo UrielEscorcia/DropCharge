@@ -44,6 +44,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var coinSCross: SKSpriteNode!
     var coinSArrow: SKSpriteNode!
     
+    var coinRef: SKSpriteNode!
+    var coinSpecialRef: SKSpriteNode!
+    
     var lastItemPosition = CGPointZero
     var lastItemHeight: CGFloat = 0.0
     var levelY: CGFloat = 0.0
@@ -74,6 +77,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         SKAction.playSoundFileNamed("explosion4.wav", waitForCompletion: false)
     ]
     
+    var animJump: SKAction! = nil
+    var animFall: SKAction! = nil
+    var animSteerLeft: SKAction! = nil
+    var animSteerRight: SKAction! = nil
+    var curAnim: SKAction? = nil
+    
+    var playerTrail: SKEmitterNode!
+    
+    var timeSinceLastExplosion: NSTimeInterval = 0
+    var timeForNextExplosion: NSTimeInterval = 1
+    
+    let gameGain: CGFloat = 2.5
+    
+    var redAlertTime: NSTimeInterval = 0
     
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
         WaitingForTap(scene: self),
@@ -101,6 +118,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerState.enterState(Idle)
         
         playBackgroundMusic("SpaceGame.caf")
+        
+        animJump = setupAnimWithPrefix("player01_jump_", start: 1, end: 4, timePerFrame: 0.1)
+        animFall = setupAnimWithPrefix("player01_fall_", start: 1, end: 3, timePerFrame: 0.1)
+        animSteerLeft = setupAnimWithPrefix("player01_steerleft_", start: 1, end: 2, timePerFrame: 0.1)
+        animSteerRight = setupAnimWithPrefix("player01_steerright_", start: 1, end: 2, timePerFrame: 0.1)
     }
     
     func setupNodes() {
@@ -122,14 +144,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         breakArrow = loadOverlayNode("BreakArrow")
         break5Across = loadOverlayNode("Break5Across")
         breakDiagonal = loadOverlayNode("BreakDiagonal")
-        coin5Across = loadOverlayNode("Coin5Across")
-        coinDiagonal = loadOverlayNode("CoinDiagonal")
-        coinCross = loadOverlayNode("CoinCross")
-        coinArrow = loadOverlayNode("CoinArrow")
-        coinS5Across = loadOverlayNode("CoinS5Across")
-        coinSDiagonal = loadOverlayNode("CoinSDiagonal")
-        coinSCross = loadOverlayNode("CoinSCross")
-        coinSArrow = loadOverlayNode("CoinSArrow")
+        
+        coinRef = loadOverlayNode("Coin")
+        coinSpecialRef = loadOverlayNode("CoinSpecial")
+        
+        coin5Across = loadCoinOverlayNode("Coin5Across")
+        coinDiagonal = loadCoinOverlayNode("CoinDiagonal")
+        coinCross = loadCoinOverlayNode("CoinCross")
+        coinArrow = loadCoinOverlayNode("CoinArrow")
+        coinS5Across = loadCoinOverlayNode("CoinS5Across")
+        coinSDiagonal = loadCoinOverlayNode("CoinSDiagonal")
+        coinSCross = loadCoinOverlayNode("CoinSCross")
+        coinSArrow = loadCoinOverlayNode("CoinSArrow")
     }
     
     func setupLevel() {
@@ -166,6 +192,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func loadOverlayNode(fileName: String) -> SKSpriteNode {
         let overlayScene = SKScene(fileNamed: fileName)
         let contentTemplateNode = overlayScene?.childNodeWithName("Overlay")
+        return contentTemplateNode as! SKSpriteNode
+    }
+    
+    func loadCoinOverlayNode(fileName: String) -> SKSpriteNode {
+        let overlayScene = SKScene(fileNamed: fileName)!
+        let contentTemplateNode = overlayScene.childNodeWithName("Overlay")
+        
+        contentTemplateNode!.enumerateChildNodesWithName("*") { (node, stop) in
+            let coinPos = node.position
+            let ref: SKSpriteNode
+            
+            if node.name == "special" {
+                ref = self.coinSpecialRef.copy() as! SKSpriteNode
+            }else{
+                ref = self.coinRef.copy() as! SKSpriteNode
+            }
+            
+            ref.position = coinPos
+            contentTemplateNode?.addChild(ref)
+            node.removeFromParent()
+        }
+        
         return contentTemplateNode as! SKSpriteNode
     }
     
@@ -288,8 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setPlayerVelocity(amount: CGFloat) {
-        let gain: CGFloat = 2.5
-        player.physicsBody!.velocity.dy = max(player.physicsBody!.velocity.dy, amount * gain)
+        player.physicsBody!.velocity.dy = max(player.physicsBody!.velocity.dy, amount * gameGain)
     }
     
     func jumpPlayer() {
@@ -298,6 +345,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func boostPlayer() {
         setPlayerVelocity(1200)
+        screenShakeByAmt(50)
     }
     
     func superBoostPlayer() {
@@ -311,19 +359,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         switch other.categoryBitMask {
         case PhysicsCategory.CoinNormal:
             if let coin = other.node as? SKSpriteNode {
-                coin.removeFromParent()
+                emitParticles("CollectNormal", sprite: coin)
                 jumpPlayer()
                 runAction(soundCoin)
             }
         case PhysicsCategory.CoinSpecial:
             if let coin = other.node as? SKSpriteNode {
-                coin.removeFromParent()
+                emitParticles("CollectSpecial", sprite: coin)
                 boostPlayer()
                 runAction(soundBoost)
             }
         case PhysicsCategory.PlatformNormal:
-            if let _ = other.node as? SKSpriteNode {
+            if let platform = other.node as? SKSpriteNode {
                 if player.physicsBody!.velocity.dy < 0 {
+                    platformAction(platform, breakable: false)
                     jumpPlayer()
                     runAction(soundJump)
                 }
@@ -331,7 +380,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case PhysicsCategory.PlatformBreakable:
             if let platform = other.node as? SKSpriteNode {
                 if player.physicsBody!.velocity.dy < 0 {
-                    platform.removeFromParent()
+                    platformAction(platform, breakable: true)
                     jumpPlayer()
                     runAction(soundBrick)
                 }
@@ -356,6 +405,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         gameState.updateWithDeltaTime(deltaTime)
+        playerState.updateWithDeltaTime(deltaTime)
         
     }
     
@@ -416,12 +466,53 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func updateExplosions(dt: NSTimeInterval) {
+        timeSinceLastExplosion += dt
+        if timeSinceLastExplosion > timeForNextExplosion {
+            timeForNextExplosion = NSTimeInterval(CGFloat.random(min: 0.1, max: 0.5))
+            timeSinceLastExplosion = 0
+            createRandomExplosion()
+        }
+    }
+    
     func updateLevel() {
         let cameraPos = getCameraPosition()
         if cameraPos.y > levelY - size.height * 0.55 {
             createBackgroundNode()
             while lastItemPosition.y < levelY {
                 addRandomOverlayNode()
+            }
+        }
+        
+        // remove old nodes...
+        for fg in fgNode.children {
+            for node in fg.children {
+                if let sprite = node as? SKSpriteNode {
+                    let nodePos = fg.convertPoint(sprite.position, toNode: self)
+                    if isNodeVisible(sprite, positionY: nodePos.y) == false {
+                        sprite.removeFromParent()
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateRedAlert(lastUpdateTime: NSTimeInterval) {
+        redAlertTime += lastUpdateTime
+        let amt: CGFloat = CGFloat(redAlertTime) * π * 2.0 / 1.93725
+        let colorBlendFactor = (sin(amt) + 1.0) / 2.0
+        
+        for bg in bgNode.children {
+            for node in bg.children {
+                if let sprite = node as? SKSpriteNode {
+                    let nodePos = bg.convertPoint(sprite.position, toNode: self)
+                    if isNodeVisible(sprite, positionY: nodePos.y) == false {
+                        sprite.removeFromParent()
+                    }else{
+                        sprite.color = SKColorWithRGB(255, g: 0, b: 0)
+                        sprite.colorBlendFactor = colorBlendFactor
+                    }
+                }
             }
         }
     }
@@ -451,6 +542,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: - Particles
+    
+    func createRandomExplosion() {
+        let cameraPos = getCameraPosition()
+        let screenSize = self.view!.bounds.size
+        
+        let screenPos = CGPoint(x: CGFloat.random(min: 0.0, max: cameraPos.x * 2.0), y: CGFloat.random(min: cameraPos.y - screenSize.height * 0.75, max: cameraPos.y + screenSize.height))
+        
+        let randomNum = Int.random(soundExplosions.count)
+        runAction(soundExplosions[randomNum])
+        
+        let explode = explosion(0.25 * CGFloat(randomNum + 1))
+        explode.position = convertPoint(screenPos, toNode: bgNode)
+        explode.runAction(SKAction.removeFromParentAfterDelay(2.0))
+        bgNode.addChild(explode)
+        
+        if randomNum == 3 {
+            screenShakeByAmt(10)
+        }
+    }
     
     func explosion(intensity: CGFloat) -> SKEmitterNode {
         let emitter = SKEmitterNode()
@@ -505,6 +615,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         trail.numParticlesToEmit = 1
         trail.runAction(SKAction.removeFromParentAfterDelay(1.0))
     }
+    
+    func emitParticles(name: String, sprite: SKSpriteNode){
+        let pos = fgNode.convertPoint(sprite.position, fromNode: sprite.parent!)
+        let particles = SKEmitterNode(fileNamed: name)!
+        particles.position = pos
+        particles.zPosition = 3
+        fgNode.addChild(particles)
+        particles.runAction(SKAction.removeFromParentAfterDelay(1.0))
+        sprite.runAction(SKAction.sequence([SKAction.scaleTo(0.0, duration: 0.5), SKAction.removeFromParent()]))
+    }
+    
     // MARK: - Sound 
     
     func playBackgroundMusic(name: String) {
@@ -525,6 +646,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         addChild(self.backgroundMusic)
     }
+    
+    //MARK: - Anim helper methods
+    
+    func setupAnimWithPrefix(prefix: String, start: Int, end: Int, timePerFrame: NSTimeInterval) -> SKAction {
+        var textures = [SKTexture]()
+        for i in start..<end {
+            textures.append(SKTexture(imageNamed: "\(prefix)\(i)"))
+        }
+        return SKAction.animateWithTextures(textures, timePerFrame: timePerFrame)
+    }
+    
+    func runAnim(anim: SKAction) {
+        if curAnim == nil || curAnim! != anim {
+            player.removeActionForKey("anim")
+            player.runAction(anim, withKey: "anim")
+            curAnim = anim
+        }
+    }
+    
+    func screenShakeByAmt(amt: CGFloat) {
+        let worldNode = childNodeWithName("World")!
+        worldNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        worldNode.removeActionForKey("shake")
+        
+        let amount = CGPoint(x: 0, y: -(amt * gameGain))
+        
+        let action = SKAction.screenShakeWithNode(worldNode, amount: amount, oscillations: 10, duration: 2.0)
+        
+        worldNode.runAction(action, withKey: "shake")
+    }
+    
+    func platformAction(sprite: SKSpriteNode, breakable: Bool) {
+        let amount = CGPoint(x: 0, y: -75.0)
+        let action = SKAction.screenShakeWithNode(sprite, amount: amount, oscillations: 10, duration: 2.0)
+        sprite.runAction(action)
+        
+        if breakable == true {
+            emitParticles("BrokenPlatform", sprite: sprite)
+        }
+    }
+    
+    // MARK: - Sprite effects
+    
+    func isNodeVisible(node: SKSpriteNode, positionY: CGFloat) -> Bool {
+        if !cameraNode.containsNode(node) {
+            if positionY < getCameraPosition().y * 0.25 {
+                return false
+            }
+        }
+        return true
+    }
+    
+    
     
 }
 

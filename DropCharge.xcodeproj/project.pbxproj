@@ -74,6 +74,8 @@
 		3ABF439A1CF8E3CA003DC127 /* player_die.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3ABF43881CF8E3CA003DC127 /* player_die.wav */; };
 		3ABF439B1CF8E3CA003DC127 /* SpaceGame.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3ABF43891CF8E3CA003DC127 /* SpaceGame.caf */; };
 		3ABF439C1CF8E3CA003DC127 /* tickTock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3ABF438A1CF8E3CA003DC127 /* tickTock.wav */; };
+		3ABF439E1CF92DA9003DC127 /* Coin.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ABF439D1CF92DA9003DC127 /* Coin.sks */; };
+		3ABF43A01CF93017003DC127 /* CoinSpecial.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ABF439F1CF93017003DC127 /* CoinSpecial.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +148,8 @@
 		3ABF43881CF8E3CA003DC127 /* player_die.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = player_die.wav; sourceTree = "<group>"; };
 		3ABF43891CF8E3CA003DC127 /* SpaceGame.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGame.caf; sourceTree = "<group>"; };
 		3ABF438A1CF8E3CA003DC127 /* tickTock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tickTock.wav; sourceTree = "<group>"; };
+		3ABF439D1CF92DA9003DC127 /* Coin.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Coin.sks; sourceTree = "<group>"; };
+		3ABF439F1CF93017003DC127 /* CoinSpecial.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSpecial.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +217,8 @@
 				3A4220D21CF52B7E00857E48 /* CoinS5Across.sks */,
 				3A4220D41CF52C7400857E48 /* CoinSDiagonal.sks */,
 				3A4220D61CF52F5B00857E48 /* CoinSCross.sks */,
+				3ABF439D1CF92DA9003DC127 /* Coin.sks */,
+				3ABF439F1CF93017003DC127 /* CoinSpecial.sks */,
 			);
 			name = "Scene Files";
 			sourceTree = "<group>";
@@ -365,6 +371,7 @@
 				3ABF43921CF8E3CA003DC127 /* coin4.wav in Resources */,
 				3A4220D51CF52C7400857E48 /* CoinSDiagonal.sks in Resources */,
 				3ABF439C1CF8E3CA003DC127 /* tickTock.wav in Resources */,
+				3ABF439E1CF92DA9003DC127 /* Coin.sks in Resources */,
 				3ABF43951CF8E3CA003DC127 /* explosion2.wav in Resources */,
 				3A1A3EE11CF3EFEC00ABD17B /* Platform5Across.sks in Resources */,
 				3ABF43991CF8E3CA003DC127 /* nitro.wav in Resources */,
@@ -378,6 +385,7 @@
 				3ABF43901CF8E3CA003DC127 /* brick.caf in Resources */,
 				3A1A3ED81CF3DD0900ABD17B /* LaunchScreen.storyboard in Resources */,
 				3ABF43941CF8E3CA003DC127 /* explosion1.wav in Resources */,
+				3ABF43A01CF93017003DC127 /* CoinSpecial.sks in Resources */,
 				3ABF438C1CF8E3CA003DC127 /* attribution.txt in Resources */,
 				3ABF439A1CF8E3CA003DC127 /* player_die.wav in Resources */,
 				3ABF438B1CF8E3CA003DC127 /* alarm.wav in Resources */,

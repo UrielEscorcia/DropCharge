@@ -19,6 +19,7 @@ class Lava: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
+        scene.playerTrail.particleBirthRate = 0
         scene.runAction(scene.soundHitLava)
         let smokeTrail = scene.addTrail("SmokeTrail")
         scene.runAction(SKAction.sequence([
@@ -29,6 +30,7 @@ class Lava: GKState {
         ]))
         scene.boostPlayer()
         scene.lives -= 1
+        scene.screenShakeByAmt(50)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

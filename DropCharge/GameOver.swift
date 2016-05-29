@@ -25,6 +25,14 @@ class GameOver: GKState {
             gameOver.position = scene.getCameraPosition()
             gameOver.zPosition = 10
             scene.addChild(gameOver)
+            
+            let explosion = scene.explosion(6.0)
+            explosion.position = gameOver.position
+            explosion.zPosition = 11
+            scene.addChild(explosion)
+            
+            scene.runAction(scene.soundExplosions[3])
+            scene.screenShakeByAmt(200)
         }
     }
     
