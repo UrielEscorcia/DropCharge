@@ -45,6 +45,7 @@ class WaitingForBomb: GKState {
     
     override func willExitWithNextState(nextState: GKState) {
         if nextState is Playing {
+            scene.setupCoreMotion()
             let bomb = scene.fgNode.childNodeWithName("Bomb")!
             scene.runAction(scene.soundExplosions[3])
             let explosion = scene.explosion(2.0)

@@ -111,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         setupNodes()
         setupLevel()
-        setupCoreMotion()
+        
     
         setCameraPosition(CGPoint(x: size.width / 2, y: size.height / 2))
         physicsWorld.contactDelegate = self
@@ -187,7 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupCoreMotion() {
-        motionManager.accelerometerUpdateInterval = 0.2
+        motionManager.accelerometerUpdateInterval = 0.01
         let queue = NSOperationQueue()
         motionManager.startAccelerometerUpdatesToQueue(queue) { accelerometerData, error in
             guard let accelerometerData = accelerometerData else {
@@ -195,6 +195,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             let acceleration = accelerometerData.acceleration
             self.xAcceleration = (CGFloat(acceleration.x) * 0.75) + (self.xAcceleration * 0.25)
+        }
+    }
+    
+    func stopCoreMotion() {
+        if self.motionManager.accelerometerActive {
+            self.motionManager.stopAccelerometerUpdates()
         }
     }
     
