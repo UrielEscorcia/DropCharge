@@ -31,6 +31,7 @@ class Lava: GKState {
         scene.boostPlayer()
         scene.lives -= 1
         scene.screenShakeByAmt(50)
+        scene.player.runAction(scene.squishAndStretch)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

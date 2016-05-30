@@ -92,6 +92,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var redAlertTime: NSTimeInterval = 0
     
+    var squishAndStretch: SKAction! = nil
+    
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
         WaitingForTap(scene: self),
         WaitingForBomb(scene: self),
@@ -156,6 +158,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         coinSDiagonal = loadCoinOverlayNode("CoinSDiagonal")
         coinSCross = loadCoinOverlayNode("CoinSCross")
         coinSArrow = loadCoinOverlayNode("CoinSArrow")
+        
+        // Squash and Stretch
+        let squishAction = SKAction.scaleXTo(1.15, y: 0.85, duration: 0.25)
+        squishAction.timingMode = .EaseInEaseOut
+        let stretchAction = SKAction.scaleXTo(0.85, y: 1.15, duration: 0.25)
+        stretchAction.timingMode = .EaseInEaseOut
+        
+        squishAndStretch = SKAction.sequence([squishAction, stretchAction])
+        
     }
     
     func setupLevel() {

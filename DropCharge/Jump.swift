@@ -25,6 +25,7 @@ class Jump: GKState {
         if scene.playerTrail.particleBirthRate == 0 {
            scene.playerTrail.particleBirthRate = 200
         }
+        scene.player.runAction(scene.squishAndStretch)
     }
     
     override func updateWithDeltaTime(seconds: NSTimeInterval) {

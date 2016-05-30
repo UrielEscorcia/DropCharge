@@ -183,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				3A1A3EC91CF3DD0900ABD17B /* AppDelegate.swift */,
-				3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */,
 				3A1A3ECD1CF3DD0900ABD17B /* GameScene.swift */,
 				3A1A3ECF1CF3DD0900ABD17B /* GameViewController.swift */,
 				3A3948C71CF67CF3008D491B /* Particles */,
@@ -203,6 +202,7 @@
 		3A1A3EDF1CF3EF9800ABD17B /* Scene Files */ = {
 			isa = PBXGroup;
 			children = (
+				3A1A3ECB1CF3DD0900ABD17B /* GameScene.sks */,
 				3A1A3EE01CF3EFEC00ABD17B /* Platform5Across.sks */,
 				3A1A3EE21CF3F29C00ABD17B /* CoinArrow.sks */,
 				3A173D991CF50C1300EBFA9E /* Break5Across.sks */,

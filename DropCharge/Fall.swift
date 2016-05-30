@@ -20,6 +20,7 @@ class Fall: GKState {
     
     override func didEnterWithPreviousState(previousState: GKState?) {
         scene.runAnim(scene.animFall)
+        scene.player.runAction(scene.squishAndStretch)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
