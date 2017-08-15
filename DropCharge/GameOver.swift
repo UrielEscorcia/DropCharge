@@ -18,7 +18,7 @@ class GameOver: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         if previousState is Playing {
             scene.stopCoreMotion()
             scene.playBackgroundMusic("SpaceGame.caf")
@@ -32,12 +32,12 @@ class GameOver: GKState {
             explosion.zPosition = 11
             scene.addChild(explosion)
             
-            scene.runAction(scene.soundExplosions[3])
+            scene.run(scene.soundExplosions[3])
             scene.screenShakeByAmt(200)
         }
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is WaitingForTap.Type
     }
 

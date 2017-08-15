@@ -18,23 +18,23 @@ class Lava: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         scene.playerTrail.particleBirthRate = 0
-        scene.runAction(scene.soundHitLava)
+        scene.run(scene.soundHitLava)
         let smokeTrail = scene.addTrail("SmokeTrail")
-        scene.runAction(SKAction.sequence([
-            SKAction.waitForDuration(3.0),
-            SKAction.runBlock(){
+        scene.run(SKAction.sequence([
+            SKAction.wait(forDuration: 3.0),
+            SKAction.run(){
                 self.scene.removeTrail(smokeTrail)
             }
         ]))
         scene.boostPlayer()
         scene.lives -= 1
         scene.screenShakeByAmt(50)
-        scene.player.runAction(scene.squishAndStretch)
+        scene.player.run(scene.squishAndStretch)
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is Fall.Type || stateClass is Jump.Type || stateClass is Dead.Type
     }
     

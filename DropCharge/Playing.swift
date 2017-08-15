@@ -18,15 +18,15 @@ class Playing: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         if previousState is WaitingForBomb {
             scene.playBackgroundMusic("bgMusic.mp3")
-            scene.player.physicsBody!.dynamic = true
+            scene.player.physicsBody!.isDynamic = true
             scene.superBoostPlayer()
         }
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+    override func update(deltaTime seconds: TimeInterval) {
         scene.updateCamera()
         scene.updateLevel()
         scene.updatePlayer()
@@ -36,7 +36,7 @@ class Playing: GKState {
         scene.updateRedAlert(seconds)
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is GameOver.Type
     }
     

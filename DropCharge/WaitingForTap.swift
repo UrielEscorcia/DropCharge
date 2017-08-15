@@ -18,12 +18,12 @@ class WaitingForTap: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        let scale = SKAction.scaleTo(1.0, duration: 0.5)
-        scene.fgNode.childNodeWithName("Ready")!.runAction(scale)
+    override func didEnter(from previousState: GKState?) {
+        let scale = SKAction.scale(to: 1.0, duration: 0.5)
+        scene.fgNode.childNode(withName: "Ready")!.run(scale)
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is WaitingForBomb.Type
     }
 }

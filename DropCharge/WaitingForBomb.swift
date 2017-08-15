@@ -18,36 +18,36 @@ class WaitingForBomb: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         if previousState is WaitingForTap {
             // Scale out title & ready label
-            let scale = SKAction.scaleTo(0, duration: 0.4)
-            scene.fgNode.childNodeWithName("Title")!.runAction(scale)
-            scene.fgNode.childNodeWithName("Ready")!.runAction(SKAction.sequence([SKAction.waitForDuration(0.2), scale]))
+            let scale = SKAction.scale(to: 0, duration: 0.4)
+            scene.fgNode.childNode(withName: "Title")!.run(scale)
+            scene.fgNode.childNode(withName: "Ready")!.run(SKAction.sequence([SKAction.wait(forDuration: 0.2), scale]))
             
             // Bounce bomb
-            let scaleUp = SKAction.scaleTo(1.25, duration: 0.25)
-            let scaleDown = SKAction.scaleTo(1, duration: 0.25)
+            let scaleUp = SKAction.scale(to: 1.25, duration: 0.25)
+            let scaleDown = SKAction.scale(to: 1, duration: 0.25)
             let sequence = SKAction.sequence([scaleUp, scaleDown])
-            let repeatSeq = SKAction.repeatActionForever(sequence)
-            scene.fgNode.childNodeWithName("Bomb")!.runAction(SKAction.unhide())
-            scene.fgNode.childNodeWithName("Bomb")!.runAction(repeatSeq)
+            let repeatSeq = SKAction.repeatForever(sequence)
+            scene.fgNode.childNode(withName: "Bomb")!.run(SKAction.unhide())
+            scene.fgNode.childNode(withName: "Bomb")!.run(repeatSeq)
             
-            scene.runAction(scene.soundBombDrop)
-            scene.runAction(SKAction.repeatAction(scene.soundTickTock, count: 2))
+            scene.run(scene.soundBombDrop)
+            scene.run(SKAction.repeat(scene.soundTickTock, count: 2))
             
         }
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is Playing.Type
     }
     
-    override func willExitWithNextState(nextState: GKState) {
+    override func willExit(to nextState: GKState) {
         if nextState is Playing {
             scene.setupCoreMotion()
-            let bomb = scene.fgNode.childNodeWithName("Bomb")!
-            scene.runAction(scene.soundExplosions[3])
+            let bomb = scene.fgNode.childNode(withName: "Bomb")!
+            scene.run(scene.soundExplosions[3])
             let explosion = scene.explosion(2.0)
             explosion.position = bomb.position
             scene.fgNode.addChild(explosion)
